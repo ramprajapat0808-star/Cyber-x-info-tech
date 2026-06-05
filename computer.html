@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CYBER X INFO-TECH ACADEMY</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: { 50: '#FEFDFB', 100: '#FDFCF8', 200: '#F5F0E8', 300: '#E8E0D2' },
+            beige: { 400: '#C9B99A', 500: '#B5A282', 600: '#9E8A66' },
+            dark: { 800: '#2A2520', 900: '#1C1917' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: system-ui, -apple-system, sans-serif; background: #FDFCF8; color: #2A2520; }
+    .profile-radius { border-radius: 10px; }
+    .card-hover { transition: transform 400ms ease, box-shadow 400ms ease; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 15px 30px rgba(0,0,0,0.06); }
+    ::selection { background: rgba(197,185,154,0.3); color: #2A2520; }
+    .modal-bg { background: rgba(26,25,23,0.6); backdrop-filter: blur(8px); }
+    .page-section { display: none; }
+    .active-page { display: block; }
+    .nav-active { color: #9E8A66 !important; font-weight: 600; }
+    .star { cursor: pointer; color: #E8E0D2; transition: color 0.2s; }
+    .star.active, .star:hover { color: #C9B99A; }
+  
+
+/* Premium Cyber Theme - edited by ChatGPT */
+:root{
+  --cx-bg:#050814;
+  --cx-panel:#0b1630;
+  --cx-panel-2:#101f42;
+  --cx-cyan:#35d7ff;
+  --cx-blue:#246bff;
+  --cx-purple:#8d5cff;
+  --cx-gold:#ffc53d;
+  --cx-orange:#ff7a18;
+  --cx-text:#eef7ff;
+  --cx-muted:rgba(238,247,255,.68);
+}
+html{scroll-behavior:smooth;}
+body{
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  background:
+    radial-gradient(circle at 16% 12%, rgba(36,107,255,.35), transparent 28%),
+    radial-gradient(circle at 82% 8%, rgba(255,122,24,.22), transparent 24%),
+    radial-gradient(circle at 50% 95%, rgba(53,215,255,.18), transparent 30%),
+    linear-gradient(135deg,#050814 0%,#07142d 42%,#0d1022 100%) !important;
+  color:var(--cx-text) !important;
+  min-height:100vh;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  background-image:
+    linear-gradient(rgba(53,215,255,.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(53,215,255,.07) 1px, transparent 1px);
+  background-size:34px 34px;
+  mask-image:linear-gradient(to bottom, rgba(0,0,0,.75), rgba(0,0,0,.18));
+}
+nav{
+  background:rgba(5,12,30,.82) !important;
+  border-bottom:1px solid rgba(53,215,255,.22) !important;
+  box-shadow:0 10px 35px rgba(0,0,0,.35);
+}
+nav a:first-child{
+  color:var(--cx-gold) !important;
+  letter-spacing:.08em;
+  text-shadow:0 0 16px rgba(255,197,61,.45);
+}
+a:hover{color:var(--cx-cyan) !important;}
+[class*="text-dark-800"]{color:var(--cx-text) !important;}
+[class*="text-dark-800/"]{color:var(--cx-muted) !important;}
+[class*="text-beige"], .nav-active{color:var(--cx-gold) !important;}
+[class*="text-cream"]{color:var(--cx-text) !important;}
+[class*="bg-white"], [class*="bg-cream-100"], [class*="bg-cream-200"]{
+  background:linear-gradient(145deg, rgba(16,31,66,.86), rgba(7,17,40,.72)) !important;
+  border:1px solid rgba(53,215,255,.20) !important;
+  box-shadow:0 18px 50px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.06);
+  backdrop-filter:blur(14px);
+}
+[class*="bg-dark-800"], [class*="bg-dark-900"]{
+  background:linear-gradient(135deg, var(--cx-orange), var(--cx-gold)) !important;
+  color:#07142d !important;
+  box-shadow:0 10px 28px rgba(255,122,24,.28), 0 0 0 1px rgba(255,255,255,.08) inset;
+}
+[class*="bg-beige-400"]{
+  background:linear-gradient(135deg, var(--cx-cyan), var(--cx-blue)) !important;
+  color:#fff !important;
+}
+.profile-radius{border-radius:18px !important;}
+.card-hover{
+  position:relative;
+  overflow:hidden;
+  transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease !important;
+}
+.card-hover::after{
+  content:"";
+  position:absolute;
+  inset:-1px;
+  pointer-events:none;
+  background:linear-gradient(120deg, transparent 0%, rgba(53,215,255,.18) 35%, rgba(255,197,61,.14) 50%, transparent 70%);
+  opacity:.0;
+  transition:opacity .35s ease;
+}
+.card-hover:hover{
+  transform:translateY(-7px) scale(1.01) !important;
+  border-color:rgba(53,215,255,.48) !important;
+  box-shadow:0 24px 70px rgba(0,0,0,.48), 0 0 35px rgba(53,215,255,.14) !important;
+}
+.card-hover:hover::after{opacity:1;}
+h1,h2,h3,.font-display{
+  color:var(--cx-text) !important;
+  text-shadow:0 0 22px rgba(53,215,255,.16);
+}
+h1 span, h2 span{color:var(--cx-gold) !important;}
+p, span, label, td, th{color:inherit;}
+.iconify{filter:drop-shadow(0 0 10px rgba(53,215,255,.45));}
+input,select,textarea{
+  background:rgba(4,10,24,.70) !important;
+  border:1px solid rgba(53,215,255,.24) !important;
+  color:var(--cx-text) !important;
+}
+input::placeholder, textarea::placeholder{color:rgba(238,247,255,.45) !important;}
+footer{
+  background:rgba(5,12,30,.92) !important;
+  border-top:1px solid rgba(53,215,255,.18);
+}
+.modal-overlay,.modal-bg{background:rgba(2,6,16,.72) !important;backdrop-filter:blur(12px) !important;}
+::selection{background:rgba(255,197,61,.35) !important;color:#fff !important;}
+
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 h-16 flex items-center px-6" style="background:rgba(253,252,248,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(197,185,154,0.2);">
+    <div class="max-w-5xl mx-auto w-full flex items-center justify-between">
+      <a href="#home" class="text-xl font-bold text-dark-800 tracking-wide uppercase">Cyber X</a>
+      <div class="hidden md:flex items-center gap-6">
+        <a href="#home" class="nav-link text-xs font-medium uppercase tracking-[0.15em] text-dark-800/60 hover:text-beige-600 transition-colors">Home</a>
+        <a href="#courses" class="nav-link text-xs font-medium uppercase tracking-[0.15em] text-dark-800/60 hover:text-beige-600 transition-colors">Courses</a>
+        <a href="#admin" class="nav-link text-xs font-medium uppercase tracking-[0.15em] text-dark-800/60 hover:text-beige-600 transition-colors">Admin</a>
+        <a href="#contact" class="nav-link text-xs font-medium uppercase tracking-[0.15em] text-dark-800/60 hover:text-beige-600 transition-colors">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════ HOME PAGE ═══════════════ -->
+  <section id="page-home" class="page-section active-page pt-28 pb-16 px-6">
+    <div class="max-w-4xl mx-auto text-center">
+      <p class="text-beige-600 text-[10px] font-bold uppercase tracking-[0.25em] mb-4">Admissions Open 2026</p>
+      <h1 class="text-4xl md:text-6xl font-medium text-dark-800 tracking-tight leading-[1.1] mb-6">
+        CYBER X INFO-TECH <span class="italic text-beige-500">Academy</span>
+      </h1>
+      <p class="text-dark-800/60 text-lg font-light leading-relaxed max-w-2xl mx-auto mb-8">Master the digital future with our industry-ready courses. Limited Seats Available!</p>
+      
+      <div class="flex flex-wrap justify-center gap-4 mb-10">
+        <div class="px-5 py-2.5 bg-cream-200 text-dark-800 text-xs font-medium uppercase tracking-wider profile-radius flex items-center gap-2">
+          <span class="iconify w-4 h-4 text-beige-600" data-icon="lucide:percent"></span> 10% OFF
+        </div>
+        <div class="px-5 py-2.5 bg-cream-200 text-dark-800 text-xs font-medium uppercase tracking-wider profile-radius flex items-center gap-2">
+          <span class="iconify w-4 h-4 text-beige-600" data-icon="lucide:award"></span> FREE CERTIFICATE
+        </div>
+      </div>
+
+      <a href="#courses" class="inline-block px-8 py-4 bg-dark-800 text-cream-100 text-xs font-bold uppercase tracking-wider profile-radius hover:bg-dark-900 transition-colors mb-16">View Courses & Register</a>
+
+      <!-- Reviews Section -->
+      <div class="text-left mt-12">
+        <div class="flex justify-between items-center mb-8">
+          <h2 class="text-2xl font-semibold text-dark-800">Student Reviews</h2>
+          <button onclick="openReviewModal()" class="px-4 py-2 bg-dark-800 text-cream-100 text-[10px] font-bold uppercase tracking-wider profile-radius hover:bg-dark-900 transition-colors">Write a Review</button>
+        </div>
+        <div id="reviewsList" class="grid md:grid-cols-2 gap-6">
+          <p class="text-sm text-dark-800/40 col-span-2 text-center py-8">Loading reviews...</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ COURSES PAGE ═══════════════ -->
+  <section id="page-courses" class="page-section pt-28 pb-16 px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-12">
+        <p class="text-beige-600 text-[10px] font-bold uppercase tracking-[0.25em] mb-2">Programs</p>
+        <h2 class="text-3xl md:text-4xl font-medium text-dark-800 tracking-tight">Our Premium Courses</h2>
+      </div>
+
+      <div class="space-y-6">
+        <div class="profile-radius bg-white border border-beige-400/20 p-6 card-hover">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="iconify w-6 h-6 text-beige-600" data-icon="lucide:brain-circuit"></span>
+            <h3 class="text-xl font-semibold text-dark-800">AI Development</h3>
+          </div>
+          <p class="text-dark-800/60 text-sm font-light leading-relaxed mb-4">Learn how to build smart applications using Artificial Intelligence, Gemini, and Machine Learning models.</p>
+          <div class="grid grid-cols-2 gap-2 mb-5 text-sm">
+            <div class="flex items-center gap-2"><span class="iconify w-4 h-4 text-beige-500" data-icon="lucide:check-circle"></span><span>Prompt Engineering</span></div>
+            <div class="flex items-center gap-2"><span class="iconify w-4 h-4 text-beige-500" data-icon="lucide:check-circle"></span><span>AI Tools Integration</span></div>
+          </div>
+          <div class="flex items-center justify-between border-t border-beige-400/10 pt-4">
+            <span class="text-2xl font-semibold text-dark-800">₹20,000</span>
+            <button onclick="openRegModal('AI Development')" class="px-6 py-2.5 bg-dark-800 text-cream-100 text-xs font-bold uppercase tracking-wider profile-radius hover:bg-dark-900 transition-colors">Register Now</button>
+          </div>
+        </div>
+
+        <div class="profile-radius bg-white border border-beige-400/20 p-6 card-hover">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="iconify w-6 h-6 text-beige-600" data-icon="lucide:code-2"></span>
+            <h3 class="text-xl font-semibold text-dark-800">Web Development</h3>
+          </div>
+          <p class="text-dark-800/60 text-sm font-light leading-relaxed mb-4">Design and develop modern, responsive websites and web applications from scratch.</p>
+          <div class="grid grid-cols-2 gap-2 mb-5 text-sm">
+            <div class="flex items-center gap-2"><span class="iconify w-4 h-4 text-beige-500" data-icon="lucide:check-circle"></span><span>HTML, CSS, JS</span></div>
+            <div class="flex items-center gap-2"><span class="iconify w-4 h-4 text-beige-500" data-icon="lucide:check-circle"></span><span>Hosting & Backend</span></div>
+          </div>
+          <div class="flex items-center justify-between border-t border-beige-400/10 pt-4">
+            <span class="text-2xl font-semibold text-dark-800">₹18,000</span>
+            <button onclick="openRegModal('Web Development')" class="px-6 py-2.5 bg-dark-800 text-cream-100 text-xs font-bold uppercase tracking-wider profile-radius hover:bg-dark-900 transition-colors">Register Now</button>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="profile-radius bg-white border border-beige-400/20 p-6 card-hover flex flex-col">
+            <h3 class="text-lg font-semibold text-dark-800 mb-2 flex items-center gap-2"><span class="iconify w-5 h-5 text-beige-600" data-icon="lucide:smartphone"></span> App Development</h3>
+            <p class="text-dark-800/50 text-sm mb-4">Build Android & iOS apps.</p>
+            <div class="flex justify-between items-center mt-auto pt-3 border-t border-beige-400/10">
+              <span class="text-lg font-semibold">₹20,000</span>
+              <button onclick="openRegModal('App Development')" class="px-4 py-2 bg-dark-800 text-cream-100 text-[10px] uppercase tracking-wider profile-radius hover:bg-dark-900">Register</button>
+            </div>
+          </div>
+          <div class="profile-radius bg-white border border-beige-400/20 p-6 card-hover flex flex-col">
+            <h3 class="text-lg font-semibold text-dark-800 mb-2 flex items-center gap-2"><span class="iconify w-5 h-5 text-beige-600" data-icon="lucide:file-text"></span> MS Office</h3>
+            <p class="text-dark-800/50 text-sm mb-4">RS-CIT + Word, Excel, PowerPoint.</p>
+            <div class="flex justify-between items-center mt-auto pt-3 border-t border-beige-400/10">
+              <span class="text-lg font-semibold">₹4,200</span>
+              <button onclick="openRegModal('RS-CIT + MS Office')" class="px-4 py-2 bg-dark-800 text-cream-100 text-[10px] uppercase tracking-wider profile-radius hover:bg-dark-900">Register</button>
+            </div>
+          </div>
+          <div class="profile-radius bg-white border border-beige-400/20 p-6 card-hover flex flex-col">
+            <h3 class="text-lg font-semibold text-dark-800 mb-2 flex items-center gap-2"><span class="iconify w-5 h-5 text-beige-600" data-icon="lucide:calculator"></span> Tally Prime</h3>
+            <p class="text-dark-800/50 text-sm mb-4">GST Billing & Accounting.</p>
+            <div class="flex justify-between items-center mt-auto pt-3 border-t border-beige-400/10">
+              <span class="text-lg font-semibold">₹12,000</span>
+              <button onclick="openRegModal('Tally Prime')" class="px-4 py-2 bg-dark-800 text-cream-100 text-[10px] uppercase tracking-wider profile-radius hover:bg-dark-900">Register</button>
+            </div>
+          </div>
+          <div class="profile-radius bg-white border border-beige-400/20 p-6 card-hover flex flex-col">
+            <h3 class="text-lg font-semibold text-dark-800 mb-2 flex items-center gap-2"><span class="iconify w-5 h-5 text-beige-600" data-icon="lucide:monitor"></span> Basic Computer</h3>
+            <p class="text-dark-800/50 text-sm mb-4">Start your digital journey.</p>
+            <div class="flex justify-between items-center mt-auto pt-3 border-t border-beige-400/10">
+              <span class="text-lg font-semibold">₹3,000</span>
+              <button onclick="openRegModal('Basic Computer')" class="px-4 py-2 bg-dark-800 text-cream-100 text-[10px] uppercase tracking-wider profile-radius hover:bg-dark-900">Register</button>
+            </div>
+          </div>
+          <div class="profile-radius bg-white border border-beige-400/20 p-6 card-hover flex flex-col md:col-span-2">
+            <h3 class="text-lg font-semibold text-dark-800 mb-2 flex items-center gap-2"><span class="iconify w-5 h-5 text-beige-600" data-icon="lucide:table-2"></span> Advanced Excel</h3>
+            <p class="text-dark-800/50 text-sm mb-4">Macros, VBA, Dashboards.</p>
+            <div class="flex justify-between items-center mt-auto pt-3 border-t border-beige-400/10">
+              <span class="text-lg font-semibold">₹6,000</span>
+              <button onclick="openRegModal('Advanced Excel')" class="px-4 py-2 bg-dark-800 text-cream-100 text-[10px] uppercase tracking-wider profile-radius hover:bg-dark-900">Register</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ ADMIN PAGE ═══════════════ -->
+  <section id="page-admin" class="page-section pt-28 pb-16 px-6">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-10">
+        <p class="text-beige-600 text-[10px] font-bold uppercase tracking-[0.25em] mb-2">Restricted</p>
+        <h2 class="text-3xl md:text-4xl font-medium text-dark-800 tracking-tight">Admin Panel</h2>
+      </div>
+
+      <div id="adminGate" class="profile-radius bg-white border border-beige-400/20 p-8 max-w-md mx-auto text-center shadow-lg">
+        <div class="w-14 h-14 bg-cream-200 profile-radius flex items-center justify-center mx-auto mb-6">
+          <span class="iconify w-6 h-6 text-beige-600" data-icon="lucide:lock"></span>
+        </div>
+        <h3 class="text-xl font-semibold text-dark-800 mb-2">Authentication</h3>
+        <p class="text-dark-800/40 text-sm font-light mb-6">Enter admin password to continue</p>
+        <input type="password" id="adminPassword" placeholder="Password" class="w-full bg-cream-50 border border-beige-400/20 profile-radius px-4 py-3 text-sm text-center focus:outline-none focus:border-beige-600 mb-4">
+        <button onclick="unlockAdmin()" class="w-full py-3 bg-dark-800 text-cream-100 text-xs font-bold uppercase tracking-wider profile-radius hover:bg-dark-900 transition-colors">Unlock</button>
+      </div>
+
+      <div id="adminDash" class="hidden">
+        <div class="flex justify-end mb-6">
+          <button onclick="lockAdmin()" class="text-xs uppercase tracking-wider text-red-500 border border-red-500/30 px-4 py-2 profile-radius hover:bg-red-50 transition-colors flex items-center gap-2">
+            <span class="iconify w-4 h-4" data-icon="lucide:log-out"></span> Logout
+          </button>
+        </div>
+
+        <!-- Add Student -->
+        <div class="profile-radius bg-white border border-beige-400/20 p-8 shadow-lg mb-8">
+          <h3 class="text-xl font-semibold text-dark-800 mb-6 flex items-center gap-3">
+            <span class="iconify w-5 h-5 text-beige-600" data-icon="lucide:user-plus"></span> Add Student
+          </h3>
+          <form id="addForm" class="grid md:grid-cols-2 gap-6">
+            <input type="text" id="sName" required placeholder="Student Name" class="bg-cream-50 border border-beige-400/20 profile-radius px-4 py-2.5 text-sm focus:outline-none focus:border-beige-600">
+            <input type="tel" id="sPhone" required placeholder="Phone Number" class="bg-cream-50 border border-beige-400/20 profile-radius px-4 py-2.5 text-sm focus:outline-none focus:border-beige-600">
+            <select id="sCourse" required class="bg-cream-50 border border-beige-400/20 profile-radius px-4 py-2.5 text-sm focus:outline-none focus:border-beige-600">
+              <option value="" disabled selected>Select Course</option>
+              <option value="AI Development">AI Development</option>
+              <option value="Web Development">Web Development</option>
+              <option value="App Development">App Development</option>
+              <option value="RS-CIT + MS Office">RS-CIT + MS Office</option>
+              <option value="Tally Prime">Tally Prime</option>
+              <option value="Basic Computer">Basic Computer</option>
+              <option value="Advanced Excel">Advanced Excel</option>
+            </select>
+            <button type="submit" class="py-2.5 bg-dark-800 text-cream-100 text-xs font-bold uppercase tracking-wider profile-radius hover:bg-dark-900 transition-colors">Add Student</button>
+          </form>
+        </div>
+
+        <!-- Student Records -->
+        <div class="profile-radius bg-white border border-beige-400/20 p-8 shadow-lg mb-8">
+          <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
+            <h3 class="text-xl font-semibold text-dark-800 flex items-center gap-3">
+              <span class="iconify w-5 h-5 text-beige-600" data-icon="lucide:users"></span> Student Records
+            </h3>
+            <input type="text" id="searchInput" placeholder="Search by name..." class="w-full md:w-64 bg-cream-50 border border-beige-400/20 profile-radius px-4 py-2 text-sm focus:outline-none focus:border-beige-600">
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left">
+              <thead>
+                <tr class="border-b border-beige-400/20 text-[10px] uppercase tracking-widest text-dark-800/40">
+                  <th class="py-3 px-4">Name</th>
+                  <th class="py-3 px-4 hidden md:table-cell">Phone</th>
+                  <th class="py-3 px-4">Course</th>
+                  <th class="py-3 px-4 hidden md:table-cell">Date</th>
+                </tr>
+              </thead>
+              <tbody id="tbody" class="text-sm text-dark-800/70"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Admin Reviews Section -->
+        <div class="profile-radius bg-white border border-beige-400/20 p-8 shadow-lg">
+          <h3 class="text-xl font-semibold text-dark-800 mb-6 flex items-center gap-3">
+            <span class="iconify w-5 h-5 text-beige-600" data-icon="lucide:star"></span> Recent Reviews
+          </h3>
+          <div id="adminReviewsList" class="space-y-4">
+            <p class="text-sm text-dark-800/40 text-center py-4">Loading reviews...</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ CONTACT PAGE ═══════════════ -->
+  <section id="page-contact" class="page-section pt-28 pb-16 px-6">
+    <div class="max-w-4xl mx-auto text-center">
+      <p class="text-beige-600 text-[10px] font-bold uppercase tracking-[0.25em] mb-2">Get In Touch</p>
+      <h2 class="text-3xl md:text-4xl font-medium text-dark-800 tracking-tight mb-8">CALL NOW - LIMITED SEATS!</h2>
+      
+      <div class="grid md:grid-cols-3 gap-6 mb-12">
+        <a href="tel:+918875116685" class="profile-radius bg-white border border-beige-400/20 p-8 card-hover block group">
+          <div class="w-12 h-12 bg-cream-200 profile-radius flex items-center justify-center mx-auto mb-4 group-hover:bg-beige-400/20 transition-colors">
+            <span class="iconify w-6 h-6 text-beige-600" data-icon="lucide:phone"></span>
+          </div>
+          <h3 class="text-lg font-semibold text-dark-800 mb-1">Phone</h3>
+          <p class="text-dark-800/40 text-sm font-light">+91 8875116685, +91 6377393721, +91 9509379729</p>
+        </a>
+        <a href="https://wa.me/918875116685?text=Hello%20Cyber%20X%20Academy%2C%20mujhe%20course%20admission%20details%20chahiye." target="_blank" class="profile-radius bg-white border border-beige-400/20 p-8 card-hover block group">
+          <div class="w-12 h-12 bg-cream-200 profile-radius flex items-center justify-center mx-auto mb-4 group-hover:bg-green-100 transition-colors">
+            <span class="iconify w-6 h-6 text-green-600" data-icon="lucide:message-circle"></span>
+          </div>
+          <h3 class="text-lg font-semibold text-dark-800 mb-1">WhatsApp</h3>
+          <p class="text-dark-800/40 text-sm font-light">WhatsApp: +91 8875116685</p>
+        </a>
+        <a href="https://www.google.com/maps/search/?api=1&query=Plot%20No.%209%20Basement%2C%20Baba%20Nahar%20Singh%20Colony%2C%20Goner%20Road%2C%20Jaipur" target="_blank" class="profile-radius bg-white border border-beige-400/20 p-8 card-hover block group">
+          <div class="w-12 h-12 bg-cream-200 profile-radius flex items-center justify-center mx-auto mb-4 group-hover:bg-beige-400/20 transition-colors">
+            <span class="iconify w-6 h-6 text-beige-600" data-icon="lucide:map-pin"></span>
+          </div>
+          <h3 class="text-lg font-semibold text-dark-800 mb-1">Address</h3>
+          <p class="text-dark-800/40 text-sm font-light">Plot No. 9 Basement, Baba Nahar Singh Colony, Goner Road, Jaipur</p>
+        </a>
+      </div>
+
+      <div class="profile-radius bg-white border border-beige-400/20 overflow-hidden shadow-xl text-left">
+        <div class="p-5 border-b border-beige-400/20 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+          <div>
+            <p class="text-beige-600 text-[10px] font-bold uppercase tracking-[0.22em] mb-1">Visit Our Academy</p>
+            <h3 class="text-xl font-semibold text-dark-800">Cyber X Info-Tech Academy</h3>
+            <p class="text-dark-800/60 text-sm mt-1">Plot No. 9 Basement, Baba Nahar Singh Colony, Goner Road, Jaipur</p>
+          </div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Plot%20No.%209%20Basement%2C%20Baba%20Nahar%20Singh%20Colony%2C%20Goner%20Road%2C%20Jaipur" target="_blank" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-dark-800 text-sm font-bold uppercase tracking-wider">
+            <span class="iconify w-5 h-5" data-icon="lucide:navigation"></span>
+            Open Map
+          </a>
+        </div>
+        <iframe
+          src="https://www.google.com/maps?q=Plot%20No.%209%20Basement%2C%20Baba%20Nahar%20Singh%20Colony%2C%20Goner%20Road%2C%20Jaipur&output=embed"
+          width="100%"
+          height="320"
+          style="border:0; display:block; filter:saturate(1.15) contrast(1.05);"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ FOOTER ═══════════════ -->
+  <footer class="bg-dark-900 pt-12 pb-8 px-6">
+    <div class="max-w-4xl mx-auto text-center">
+      <p class="text-xl font-bold text-cream-100 tracking-wide uppercase mb-4">Cyber X</p>
+      <div class="flex justify-center gap-3 mb-6">
+        <a href="#" class="w-10 h-10 bg-white/5 border border-white/10 profile-radius flex items-center justify-center hover:bg-beige-400/10 transition-colors"><span class="iconify w-5 h-5 text-cream-200/50" data-icon="lucide:instagram"></span></a>
+        <a href="#" class="w-10 h-10 bg-white/5 border border-white/10 profile-radius flex items-center justify-center hover:bg-beige-400/10 transition-colors"><span class="iconify w-5 h-5 text-cream-200/50" data-icon="lucide:youtube"></span></a>
+        <a href="https://wa.me/918875116685?text=Hello%20Cyber%20X%20Academy%2C%20mujhe%20course%20admission%20details%20chahiye." class="w-10 h-10 bg-white/5 border border-white/10 profile-radius flex items-center justify-center hover:bg-beige-400/10 transition-colors"><span class="iconify w-5 h-5 text-cream-200/50" data-icon="lucide:message-circle"></span></a>
+      </div>
+      
+      <div class="flex flex-col md:flex-row items-center justify-center gap-3 text-xs text-cream-200/60 mb-6">
+        <a href="tel:+918875116685" class="hover:text-beige-600 transition-colors">Call: +91 8875116685, 6377393721, 9509379729</a>
+        <span class="hidden md:inline text-cream-200/20">|</span>
+        <a href="https://wa.me/918875116685?text=Hello%20Cyber%20X%20Academy%2C%20mujhe%20course%20admission%20details%20chahiye." target="_blank" class="hover:text-beige-600 transition-colors">WhatsApp Admission Enquiry</a>
+        <span class="hidden md:inline text-cream-200/20">|</span>
+        <a href="https://www.google.com/maps/search/?api=1&query=Plot%20No.%209%20Basement%2C%20Baba%20Nahar%20Singh%20Colony%2C%20Goner%20Road%2C%20Jaipur" target="_blank" class="hover:text-beige-600 transition-colors">Google Map Location</a>
+      </div>
+      <div class="h-px bg-white/5 mb-6"></div>
+      <p class="text-cream-200/15 text-[10px] font-light">© 2025 Cyber X Info-Tech Academy. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- ═══════════════ REGISTRATION MODAL ═══════════════ -->
+  <div id="regModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 modal-bg">
+    <div class="bg-cream-100 border border-beige-400/30 profile-radius p-8 w-full max-w-md shadow-2xl relative">
+      <button onclick="closeModal('regModal')" class="absolute top-4 right-4 text-dark-800/40 hover:text-dark-800 transition-colors"><span class="iconify w-5 h-5" data-icon="lucide:x"></span></button>
+      <h3 class="text-2xl font-semibold text-dark-800 mb-1">Register Now</h3>
+      <p class="text-beige-600 text-xs uppercase tracking-widest mb-6" id="modalCourseName">Course Name</p>
+      <form id="regForm" class="space-y-4">
+        <input type="text" id="regName" required placeholder="Your Full Name" class="w-full bg-white border border-beige-400/20 profile-radius px-4 py-2.5 text-sm text-dark-800 focus:outline-none focus:border-beige-600">
+        <input type="tel" id="regPhone" required placeholder="Phone Number" class="w-full bg-white border border-beige-400/20 profile-radius px-4 py-2.5 text-sm text-dark-800 focus:outline-none focus:border-beige-600">
+        <input type="hidden" id="regCourse">
+        <button type="submit" class="w-full py-3 bg-dark-800 text-cream-100 text-xs font-bold uppercase tracking-wider profile-radius hover:bg-dark-900 transition-colors mt-2">Submit Registration</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ═══════════════ REVIEW MODAL ═══════════════ -->
+  <div id="reviewModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 modal-bg">
+    <div class="bg-cream-100 border border-beige-400/30 profile-radius p-8 w-full max-w-md shadow-2xl relative">
+      <button onclick="closeModal('reviewModal')" class="absolute top-4 right-4 text-dark-800/40 hover:text-dark-800 transition-colors"><span class="iconify w-5 h-5" data-icon="lucide:x"></span></button>
+      <h3 class="text-2xl font-semibold text-dark-800 mb-1">Write a Review</h3>
+      <p class="text-beige-600 text-xs uppercase tracking-widest mb-6">Share your experience</p>
+      <form id="reviewForm" class="space-y-4">
+        <input type="text" id="revName" required placeholder="Your Name" class="w-full bg-white border border-beige-400/20 profile-radius px-4 py-2.5 text-sm text-dark-800 focus:outline-none focus:border-beige-600">
+        <select id="revCourse" required class="w-full bg-white border border-beige-400/20 profile-radius px-4 py-2.5 text-sm text-dark-800 focus:outline-none focus:border-beige-600">
+          <option value="" disabled selected>Select Course</option>
+          <option value="AI Development">AI Development</option>
+          <option value="Web Development">Web Development</option>
+          <option value="App Development">App Development</option>
+          <option value="RS-CIT + MS Office">RS-CIT + MS Office</option>
+          <option value="Tally Prime">Tally Prime</option>
+          <option value="Basic Computer">Basic Computer</option>
+          <option value="Advanced Excel">Advanced Excel</option>
+        </select>
+        <div>
+          <label class="text-[10px] uppercase tracking-widest text-dark-800/40 block mb-2">Rating</label>
+          <div class="flex gap-2" id="ratingStars">
+            <span class="star text-2xl" data-rating="1">★</span>
+            <span class="star text-2xl" data-rating="2">★</span>
+            <span class="star text-2xl" data-rating="3">★</span>
+            <span class="star text-2xl" data-rating="4">★</span>
+            <span class="star text-2xl" data-rating="5">★</span>
+          </div>
+          <input type="hidden" id="revRating" value="5" required>
+        </div>
+        <textarea id="revText" rows="3" required placeholder="Write your review here..." class="w-full bg-white border border-beige-400/20 profile-radius px-4 py-2.5 text-sm text-dark-800 focus:outline-none focus:border-beige-600 resize-none"></textarea>
+        <button type="submit" class="w-full py-3 bg-dark-800 text-cream-100 text-xs font-bold uppercase tracking-wider profile-radius hover:bg-dark-900 transition-colors mt-2">Submit Review</button>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════ JAVASCRIPT ═══════════════ -->
+  <script>
+    // --- Supabase Setup (Fixed URL and Key) ---
+    const SUPABASE_URL = 'https://iwukkrskahzinnwpcgqg.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml3dWtrcnNrYWh6aW5ud3BjZ3FnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1NTM4NzIsImV4cCI6MjA5NjEyOTg3Mn0.fTbCv5bLBwBvmHj_CVBw8-4-XQgFTfe6-soqkuin2Wk';
+    const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const ADMIN_PASS = 'lakhan123'; // Change password here
+
+    // --- Page Routing ---
+    function navigateTo(pageId) {
+      document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active-page'));
+      const target = document.getElementById(`page-${pageId}`);
+      if(target) target.classList.add('active-page');
+      
+      document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('nav-active'));
+      const activeLink = document.querySelector(`.nav-link[href="#${pageId}"]`);
+      if(activeLink) activeLink.classList.add('nav-active');
+      
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      if(pageId === 'home') fetchHomeReviews();
+      if(pageId === 'admin' && !document.getElementById('adminDash').classList.contains('hidden')) {
+        fetchStudents(); fetchAdminReviews();
+      }
+    }
+
+    window.addEventListener('hashchange', () => navigateTo(window.location.hash.substring(1) || 'home'));
+    window.addEventListener('load', () => { navigateTo(window.location.hash.substring(1) || 'home'); setupStars(); });
+
+    // --- Modals ---
+    function openRegModal(courseName) {
+      document.getElementById('modalCourseName').textContent = courseName;
+      document.getElementById('regCourse').value = courseName;
+      document.getElementById('regModal').classList.remove('hidden');
+      document.getElementById('regModal').classList.add('flex');
+    }
+    function openReviewModal() {
+      document.getElementById('reviewModal').classList.remove('hidden');
+      document.getElementById('reviewModal').classList.add('flex');
+    }
+    function closeModal(id) {
+      document.getElementById(id).classList.add('hidden');
+      document.getElementById(id).classList.remove('flex');
+      if(id === 'regModal') document.getElementById('regForm').reset();
+      if(id === 'reviewModal') document.getElementById('reviewForm').reset();
+    }
+
+    // --- Star Rating Logic ---
+    let currentRating = 5;
+    function setupStars() {
+      document.querySelectorAll('#ratingStars .star').forEach(star => {
+        star.addEventListener('click', (e) => {
+          currentRating = parseInt(e.target.getAttribute('data-rating'));
+          document.getElementById('revRating').value = currentRating;
+          document.querySelectorAll('#ratingStars .star').forEach(s => s.classList.remove('active'));
+          for(let i=1; i<=currentRating; i++) {
+            document.querySelector(`.star[data-rating="${i}"]`).classList.add('active');
+          }
+        });
+      });
+      for(let i=1; i<=5; i++) document.querySelector(`.star[data-rating="${i}"]`).classList.add('active');
+    }
+
+    // --- Registration Form Submit ---
+    document.getElementById('regForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('regName').value.trim();
+      const phone = document.getElementById('regPhone').value.trim();
+      const course = document.getElementById('regCourse').value;
+      const { error } = await db.from('students').insert([{ name, phone, course }]);
+      if(error) { alert("Error: " + error.message); } 
+      else { alert("Registration Successful!"); closeModal('regModal'); }
+    });
+
+    // --- Review Form Submit ---
+    document.getElementById('reviewForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('revName').value.trim();
+      const course = document.getElementById('revCourse').value;
+      const rating = parseInt(document.getElementById('revRating').value);
+      const review_text = document.getElementById('revText').value.trim();
+      
+      const { error } = await db.from('reviews').insert([{ name, course, rating, review_text }]);
+      if(error) { alert("Error: " + error.message); } 
+      else { alert("Review Submitted Successfully!"); closeModal('reviewModal'); fetchHomeReviews(); }
+    });
+
+    // --- Fetch Home Page Reviews ---
+    async function fetchHomeReviews() {
+      const container = document.getElementById('reviewsList');
+      const { data, error } = await db.from('reviews').select('*').order('created_at', { ascending: false }).limit(4);
+      if(error || !data || data.length === 0) {
+        container.innerHTML = '<p class="text-sm text-dark-800/40 col-span-2 text-center py-8">No reviews yet. Be the first to review!</p>';
+        return;
+      }
+      container.innerHTML = '';
+      data.forEach(rev => {
+        let stars = '';
+        for(let i=1; i<=5; i++) stars += i <= rev.rating ? '<span class="text-beige-500">★</span>' : '<span class="text-beige-400/30">★</span>';
+        container.innerHTML += `
+          <div class="profile-radius bg-white border border-beige-400/20 p-6 shadow-sm">
+            <div class="flex justify-between items-center mb-3">
+              <h4 class="font-semibold text-dark-800">${rev.name}</h4>
+              <span class="px-2 py-1 bg-cream-200 text-dark-800 text-[9px] uppercase tracking-wider profile-radius">${rev.course}</span>
+            </div>
+            <div class="mb-2 text-lg">${stars}</div>
+            <p class="text-dark-800/60 text-sm font-light">${rev.review_text}</p>
+          </div>`;
+      });
+    }
+
+    // --- Admin Logic ---
+    function unlockAdmin() {
+      if(document.getElementById('adminPassword').value === ADMIN_PASS) {
+        document.getElementById('adminGate').classList.add('hidden');
+        document.getElementById('adminDash').classList.remove('hidden');
+        fetchStudents(); fetchAdminReviews();
+      } else { alert('Incorrect Password!'); document.getElementById('adminPassword').value = ''; }
+    }
+    function lockAdmin() {
+      document.getElementById('adminGate').classList.remove('hidden');
+      document.getElementById('adminDash').classList.add('hidden');
+      document.getElementById('adminPassword').value = '';
+    }
+
+    async function fetchStudents(searchQuery = '') {
+      const tbody = document.getElementById('tbody');
+      tbody.innerHTML = '<tr><td colspan="4" class="text-center py-4 text-dark-800/30">Loading...</td></tr>';
+      let query = db.from('students').select('*').order('created_at', { ascending: false });
+      if(searchQuery) query = query.ilike('name', `%${searchQuery}%`);
+      const { data, error } = await query;
+      if(error || !data || data.length === 0) { tbody.innerHTML = '<tr><td colspan="4" class="text-center py-4 text-dark-800/30">No records found</td></tr>'; return; }
+      tbody.innerHTML = '';
+      data.forEach(s => {
+        const d = new Date(s.created_at).toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' });
+        tbody.innerHTML += `<tr class="border-b border-beige-400/10 hover:bg-cream-200/30 transition-colors">
+          <td class="py-3 px-4 font-medium text-dark-800">${s.name}</td>
+          <td class="py-3 px-4 hidden md:table-cell">${s.phone}</td>
+          <td class="py-3 px-4"><span class="px-2 py-1 bg-cream-200 text-dark-800 text-[10px] font-medium uppercase tracking-wider profile-radius">${s.course}</span></td>
+          <td class="py-3 px-4 hidden md:table-cell text-dark-800/40">${d}</td></tr>`;
+      });
+    }
+
+    async function fetchAdminReviews() {
+      const container = document.getElementById('adminReviewsList');
+      const { data, error } = await db.from('reviews').select('*').order('created_at', { ascending: false });
+      if(error || !data || data.length === 0) { container.innerHTML = '<p class="text-sm text-dark-800/40 text-center py-4">No reviews found</p>'; return; }
+      container.innerHTML = '';
+      data.forEach(rev => {
+        let stars = '';
+        for(let i=1; i<=5; i++) stars += i <= rev.rating ? '<span class="text-beige-500">★</span>' : '<span class="text-beige-400/30">★</span>';
+        container.innerHTML += `
+          <div class="border-b border-beige-400/10 pb-4">
+            <div class="flex justify-between items-center mb-1">
+              <h4 class="font-semibold text-dark-800 text-sm">${rev.name} <span class="font-normal text-dark-800/40">- ${rev.course}</span></h4>
+              <div class="text-sm">${stars}</div>
+            </div>
+            <p class="text-dark-800/60 text-sm font-light">${rev.review_text}</p>
+          </div>`;
+      });
+    }
+
+    document.getElementById('addForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('sName').value.trim();
+      const phone = document.getElementById('sPhone').value.trim();
+      const course = document.getElementById('sCourse').value;
+      const { error } = await db.from('students').insert([{ name, phone, course }]);
+      if(error) { alert("Database Error: " + JSON.stringify(error)); } 
+      else { alert('Student Added Successfully!'); document.getElementById('addForm').reset(); fetchStudents(); }
+    });
+
+    let searchTimeout;
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => fetchStudents(e.target.value), 500);
+    });
+
+  </script>
+
+  <div class="fixed bottom-5 right-5 z-[90] flex flex-col gap-3">
+    <a href="https://wa.me/918875116685?text=Hello%20Cyber%20X%20Academy%2C%20mujhe%20course%20admission%20details%20chahiye." target="_blank" class="w-14 h-14 rounded-full bg-green-500 flex items-center justify-center shadow-2xl border border-white/20" title="WhatsApp Cyber X">
+      <span class="iconify w-7 h-7 text-white" data-icon="lucide:message-circle"></span>
+    </a>
+    <a href="tel:+918875116685" class="w-14 h-14 rounded-full bg-dark-800 flex items-center justify-center shadow-2xl border border-white/20" title="Call Cyber X">
+      <span class="iconify w-7 h-7" data-icon="lucide:phone-call"></span>
+    </a>
+  </div>
+
+</body>
+</html>

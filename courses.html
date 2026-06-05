@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Courses - CYBER X ACADEMY</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: { 50: '#FEFDFB', 100: '#FDFCF8', 200: '#F5F0E8', 300: '#E8E0D2' },
+            beige: { 400: '#C9B99A', 500: '#B5A282', 600: '#9E8A66' },
+            dark: { 800: '#2A2520', 900: '#1C1917' }
+          },
+          fontFamily: { display: ['Playfair Display', 'serif'], body: ['Inter', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Inter', sans-serif; background: #FDFCF8; color: #2A2520; }
+    .profile-radius { border-radius: 10px; }
+    .card-hover { transition: transform 400ms ease, box-shadow 400ms ease; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 15px 30px rgba(0,0,0,0.06); }
+    ::selection { background: rgba(197,185,154,0.3); color: #2A2520; }
+    .modal-overlay { background: rgba(26,25,23,0.6); backdrop-filter: blur(8px); }
+  
+
+/* Premium Cyber Theme - edited by ChatGPT */
+:root{
+  --cx-bg:#050814;
+  --cx-panel:#0b1630;
+  --cx-panel-2:#101f42;
+  --cx-cyan:#35d7ff;
+  --cx-blue:#246bff;
+  --cx-purple:#8d5cff;
+  --cx-gold:#ffc53d;
+  --cx-orange:#ff7a18;
+  --cx-text:#eef7ff;
+  --cx-muted:rgba(238,247,255,.68);
+}
+html{scroll-behavior:smooth;}
+body{
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  background:
+    radial-gradient(circle at 16% 12%, rgba(36,107,255,.35), transparent 28%),
+    radial-gradient(circle at 82% 8%, rgba(255,122,24,.22), transparent 24%),
+    radial-gradient(circle at 50% 95%, rgba(53,215,255,.18), transparent 30%),
+    linear-gradient(135deg,#050814 0%,#07142d 42%,#0d1022 100%) !important;
+  color:var(--cx-text) !important;
+  min-height:100vh;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  background-image:
+    linear-gradient(rgba(53,215,255,.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(53,215,255,.07) 1px, transparent 1px);
+  background-size:34px 34px;
+  mask-image:linear-gradient(to bottom, rgba(0,0,0,.75), rgba(0,0,0,.18));
+}
+nav{
+  background:rgba(5,12,30,.82) !important;
+  border-bottom:1px solid rgba(53,215,255,.22) !important;
+  box-shadow:0 10px 35px rgba(0,0,0,.35);
+}
+nav a:first-child{
+  color:var(--cx-gold) !important;
+  letter-spacing:.08em;
+  text-shadow:0 0 16px rgba(255,197,61,.45);
+}
+a:hover{color:var(--cx-cyan) !important;}
+[class*="text-dark-800"]{color:var(--cx-text) !important;}
+[class*="text-dark-800/"]{color:var(--cx-muted) !important;}
+[class*="text-beige"], .nav-active{color:var(--cx-gold) !important;}
+[class*="text-cream"]{color:var(--cx-text) !important;}
+[class*="bg-white"], [class*="bg-cream-100"], [class*="bg-cream-200"]{
+  background:linear-gradient(145deg, rgba(16,31,66,.86), rgba(7,17,40,.72)) !important;
+  border:1px solid rgba(53,215,255,.20) !important;
+  box-shadow:0 18px 50px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.06);
+  backdrop-filter:blur(14px);
+}
+[class*="bg-dark-800"], [class*="bg-dark-900"]{
+  background:linear-gradient(135deg, var(--cx-orange), var(--cx-gold)) !important;
+  color:#07142d !important;
+  box-shadow:0 10px 28px rgba(255,122,24,.28), 0 0 0 1px rgba(255,255,255,.08) inset;
+}
+[class*="bg-beige-400"]{
+  background:linear-gradient(135deg, var(--cx-cyan), var(--cx-blue)) !important;
+  color:#fff !important;
+}
+.profile-radius{border-radius:18px !important;}
+.card-hover{
+  position:relative;
+  overflow:hidden;
+  transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease !important;
+}
+.card-hover::after{
+  content:"";
+  position:absolute;
+  inset:-1px;
+  pointer-events:none;
+  background:linear-gradient(120deg, transparent 0%, rgba(53,215,255,.18) 35%, rgba(255,197,61,.14) 50%, transparent 70%);
+  opacity:.0;
+  transition:opacity .35s ease;
+}
+.card-hover:hover{
+  transform:translateY(-7px) scale(1.01) !important;
+  border-color:rgba(53,215,255,.48) !important;
+  box-shadow:0 24px 70px rgba(0,0,0,.48), 0 0 35px rgba(53,215,255,.14) !important;
+}
+.card-hover:hover::after{opacity:1;}
+h1,h2,h3,.font-display{
+  color:var(--cx-text) !important;
+  text-shadow:0 0 22px rgba(53,215,255,.16);
+}
+h1 span, h2 span{color:var(--cx-gold) !important;}
+p, span, label, td, th{color:inherit;}
+.iconify{filter:drop-shadow(0 0 10px rgba(53,215,255,.45));}
+input,select,textarea{
+  background:rgba(4,10,24,.70) !important;
+  border:1px solid rgba(53,215,255,.24) !important;
+  color:var(--cx-text) !important;
+}
+input::placeholder, textarea::placeholder{color:rgba(238,247,255,.45) !important;}
+footer{
+  background:rgba(5,12,30,.92) !important;
+  border-top:1px solid rgba(53,215,255,.18);
+}
+.modal-overlay,.modal-bg{background:rgba(2,6,16,.72) !important;backdrop-filter:blur(12px) !important;}
+::selection{background:rgba(255,197,61,.35) !important;color:#fff !important;}
+
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 h-16 flex items-center px-6" style="background:rgba(253,252,248,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(197,185,154,0.2);">
+    <div class="max-w-5xl mx-auto w-full flex items-center justify-between">
+      <a href="index.html" class="font-display text-xl text-dark-800 tracking-wide">Cyber X</a>
+      <div class="hidden md:flex items-center gap-6">
+        <a href="index.html" class="text-xs font-medium uppercase tracking-[0.15em] text-dark-800/60 hover:text-beige-600 transition-colors">Home</a>
+        <a href="courses.html" class="text-xs font-medium uppercase tracking-[0.15em] text-beige-600">Courses</a>
+        <a href="admin.html" class="text-xs font-medium uppercase tracking-[0.15em] text-dark-800/60 hover:text-beige-600 transition-colors">Admin</a>
+        <a href="contact.html" class="text-xs font-medium uppercase tracking-[0.15em] text-dark-800/60 hover:text-beige-600 transition-colors">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Courses Section -->
+  <section class="pt-28 pb-16 px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-12">
+        <p class="text-beige-600 text-[10px] font-bold uppercase tracking-[0.25em] mb-2">Programs</p>
+        <h2 class="font-display text-3xl md:text-4xl font-medium text-dark-800 tracking-tight">Our Premium Courses</h2>
+      </div>
+
+      <div class="space-y-8">
+        
+        <!-- Course 1: AI Development -->
+        <div class="profile-radius bg-white border border-beige-400/20 p-8 card-hover relative overflow-hidden">
+          <div class="absolute top-0 right-0 bg-beige-400 text-dark-800 text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase">Popular</div>
+          <div class="flex flex-col md:flex-row gap-6">
+            <div class="flex-1">
+              <div class="flex items-center gap-3 mb-3">
+                <span class="iconify w-6 h-6 text-beige-600" data-icon="lucide:brain-circuit"></span>
+                <h3 class="font-display text-2xl text-dark-800">AI Development</h3>
+              </div>
+              <p class="text-dark-800/60 text-sm font-light leading-relaxed mb-4">Learn how to build smart applications using Artificial Intelligence and Machine Learning models.</p>
+              <div class="space-y-2 mb-6">
+                <div class="flex items-center gap-2"><span class="iconify w-4 h-4 text-beige-500" data-icon="lucide:check-circle"></span><span class="text-sm text-dark-800/80">Prompt Engineering & ChatGPT</span></div>
+                <div class="flex items-center gap-2"><span class="iconify w-4 h-4 text-beige-500" data-icon="lucide:check-circle"></span><span class="text-sm text-dark-800/80">Machine Learning Basics</span></div>
+                <div class="flex items-center gap-2"><span class="iconify w-4 h-4 text-beige-500" data-icon="lucide:check-circle"></span><span class="text-sm text-dark-800/80">AI Tools Integration (Gemini/Copilot)</span></div>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="font-display text-2xl text-dark-800 font-medium">₹20,000</span>
+                <button onclick="openModal('AI Development')" class="px-6 py-2.5 bg-dark-800 text-cream-100 text-xs font-medium uppercase tracking-wider profile-radius hover:bg-dark-900 transition-colors">Register Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Course 2: Web Development -->
+        <div class="profile-radius bg-white border border-beige-400/20 p-8 card-hover">
+          <div class="flex flex-col md:flex-row gap-6">
+            <div class="flex-1">
+              <div class="flex items-center gap-3 mb-3">
+                <span class="iconify w-6 h-6 text-beige-600" data-icon="lucide:code-2"></span>
+                <h3 class="font-display text-2xl text-dark-800">Web Development</h3>
+              </div>
+              <p class="text-dark-800/60 text-sm font-light leading-relaxed mb-4">Design and develop modern, responsive websites and web applications from scratch.</p>
+              <div class="space-y-2 mb-6">
+                <div class="flex items-center gap-2"><span class="iconify w-4 h-4 text-beige-500" data-icon="lucide:check-circle"></span><span class="text-sm text-dark-800/80">HTML, CSS & JavaScript</span></div>
+                <div class="flex items-center gap-2"><span class="iconify w-4 h-4 text-beige-500" data-icon="lucide:check-circle"></span><span class="text-sm text-dark-800/80">React & Backend Basics</span></div>
+                <div class="flex items-center gap-2"><span class="iconify w-4 h-4 text-beige-500" data-icon="lucide:check-circle"></span><span class="text-sm text-dark-800/80">Hosting & Domain Management</span></div>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="font-display text-2xl text-dark-800 font-medium">₹18,000</span>
+                <button onclick="openModal('Web Development')" class="px-6 py-2.5 bg-dark-800 text-cream-100 text-xs font-medium uppercase tracking-wider profile-radius hover:bg-dark-900 transition-colors">Register Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Course 3: App Development -->
+        <div class="profile-radius bg-white border border-beige-400/20 p-8 card-hover">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="iconify w-6 h-6 text-beige-600" data-icon="lucide:smartphone"></span>
+            <h3 class="font-display text-2xl text-dark-800">App Development</h3>
+          </div>
+          <p class="text-dark-800/60 text-sm font-light leading-relaxed mb-4">Build seamless Android & iOS applications.</p>
+          <div class="space-y-2 mb-6">
+            <div class="flex items-center gap-2"><span class="iconify w-4 h-4 text-beige-500" data-icon="lucide:check-circle"></span><span class="text-sm text-dark-800/80">Flutter / React Native</span></div>
+            <div class="flex items-center gap-2"><span class="iconify w-4 h-4 text-beige-500" data-icon="lucide:check-circle"></span><span class="text-sm text-dark-800/80">App Store Deployment</span></div>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="font-display text-2xl text-dark-800 font-medium">₹20,000</span>
+            <button onclick="openModal('App Development')" class="px-6 py-2.5 bg-dark-800 text-cream-100 text-xs font-medium uppercase tracking-wider profile-radius hover:bg-dark-900 transition-colors">Register Now</button>
+          </div>
+        </div>
+
+        <!-- Course 4: MS Office & Advanced Excel (Combined Layout) -->
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="profile-radius bg-white border border-beige-400/20 p-8 card-hover">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="iconify w-6 h-6 text-beige-600" data-icon="lucide:file-text"></span>
+              <h3 class="font-display text-xl text-dark-800">RS-CIT + MS Office</h3>
+            </div>
+            <p class="text-dark-800/60 text-sm font-light leading-relaxed mb-4">RS-CIT preparation with MS Office: Word, Excel and PowerPoint.</p>
+            <div class="flex items-center justify-between mt-6">
+              <span class="font-display text-xl text-dark-800 font-medium">₹4,200</span>
+              <button onclick="openModal('RS-CIT + MS Office')" class="px-4 py-2 bg-dark-800 text-cream-100 text-[10px] font-medium uppercase tracking-wider profile-radius hover:bg-dark-900 transition-colors">Register</button>
+            </div>
+          </div>
+
+          <div class="profile-radius bg-white border border-beige-400/20 p-8 card-hover">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="iconify w-6 h-6 text-beige-600" data-icon="lucide:table-2"></span>
+              <h3 class="font-display text-xl text-dark-800">Advanced Excel</h3>
+            </div>
+            <p class="text-dark-800/60 text-sm font-light leading-relaxed mb-4">Macros, VBA, Dashboards, and Data Analytics.</p>
+            <div class="flex items-center justify-between mt-6">
+              <span class="font-display text-xl text-dark-800 font-medium">₹6,000</span>
+              <button onclick="openModal('Advanced Excel')" class="px-4 py-2 bg-dark-800 text-cream-100 text-[10px] font-medium uppercase tracking-wider profile-radius hover:bg-dark-900 transition-colors">Register</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Course 5: Tally & Basic Computer -->
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="profile-radius bg-white border border-beige-400/20 p-8 card-hover">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="iconify w-6 h-6 text-beige-600" data-icon="lucide:calculator"></span>
+              <h3 class="font-display text-xl text-dark-800">Tally Prime</h3>
+            </div>
+            <p class="text-dark-800/60 text-sm font-light leading-relaxed mb-4">Expert in accounting, GST billing & inventory.</p>
+            <div class="flex items-center justify-between mt-6">
+              <span class="font-display text-xl text-dark-800 font-medium">₹12,000</span>
+              <button onclick="openModal('Tally Prime')" class="px-4 py-2 bg-dark-800 text-cream-100 text-[10px] font-medium uppercase tracking-wider profile-radius hover:bg-dark-900 transition-colors">Register</button>
+            </div>
+          </div>
+
+          <div class="profile-radius bg-white border border-beige-400/20 p-8 card-hover">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="iconify w-6 h-6 text-beige-600" data-icon="lucide:monitor"></span>
+              <h3 class="font-display text-xl text-dark-800">Basic Computer</h3>
+            </div>
+            <p class="text-dark-800/60 text-sm font-light leading-relaxed mb-4">Start your digital journey from scratch.</p>
+            <div class="flex items-center justify-between mt-6">
+              <span class="font-display text-xl text-dark-800 font-medium">₹3,000</span>
+              <button onclick="openModal('Basic Computer')" class="px-4 py-2 bg-dark-800 text-cream-100 text-[10px] font-medium uppercase tracking-wider profile-radius hover:bg-dark-900 transition-colors">Register</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Registration Modal -->
+  <div id="regModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 modal-overlay">
+    <div class="bg-cream-100 border border-beige-400/30 profile-radius p-8 w-full max-w-md shadow-2xl relative">
+      <button onclick="closeModal()" class="absolute top-4 right-4 text-dark-800/40 hover:text-dark-800 transition-colors">
+        <span class="iconify w-5 h-5" data-icon="lucide:x"></span>
+      </button>
+      <h3 class="font-display text-2xl text-dark-800 mb-1">Register Now</h3>
+      <p class="text-beige-600 text-xs uppercase tracking-widest mb-6" id="modalCourseName">Course Name</p>
+      
+      <form id="regForm" class="space-y-4">
+        <div>
+          <label class="text-[10px] uppercase tracking-widest text-dark-800/40 block mb-1">Full Name</label>
+          <input type="text" id="regName" required class="w-full bg-white border border-beige-400/20 profile-radius px-4 py-2.5 text-sm text-dark-800 focus:outline-none focus:border-beige-600 transition-colors" placeholder="Enter your name">
+        </div>
+        <div>
+          <label class="text-[10px] uppercase tracking-widest text-dark-800/40 block mb-1">Phone Number</label>
+          <input type="tel" id="regPhone" required class="w-full bg-white border border-beige-400/20 profile-radius px-4 py-2.5 text-sm text-dark-800 focus:outline-none focus:border-beige-600 transition-colors" placeholder="+91 9876543210">
+        </div>
+        <input type="hidden" id="regCourse">
+        <button type="submit" class="w-full py-3 bg-dark-800 text-cream-100 text-xs font-bold uppercase tracking-wider profile-radius hover:bg-dark-900 transition-colors mt-2">
+          Submit Registration
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark-900 pt-12 pb-8 px-6 mt-12">
+    <div class="max-w-4xl mx-auto text-center">
+      <a href="index.html" class="font-display text-2xl text-cream-100 tracking-wide">Cyber X</a>
+      
+      <div class="flex flex-col md:flex-row items-center justify-center gap-3 text-xs text-cream-200/60 mb-6">
+        <a href="tel:+918875116685" class="hover:text-beige-600 transition-colors">Call: +91 8875116685, 6377393721, 9509379729</a>
+        <span class="hidden md:inline text-cream-200/20">|</span>
+        <a href="https://wa.me/918875116685?text=Hello%20Cyber%20X%20Academy%2C%20mujhe%20course%20admission%20details%20chahiye." target="_blank" class="hover:text-beige-600 transition-colors">WhatsApp Admission Enquiry</a>
+        <span class="hidden md:inline text-cream-200/20">|</span>
+        <a href="https://www.google.com/maps/search/?api=1&query=Plot%20No.%209%20Basement%2C%20Baba%20Nahar%20Singh%20Colony%2C%20Goner%20Road%2C%20Jaipur" target="_blank" class="hover:text-beige-600 transition-colors">Google Map Location</a>
+      </div>
+      <div class="h-px bg-white/5 my-6"></div>
+      <p class="text-cream-200/15 text-[10px] font-light">© 2025 Cyber X Info-Tech Academy. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+    const SUPABASE_KEY = 'YOUR_SUPABASE_ANON_KEY';
+    const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const modal = document.getElementById('regModal');
+    const regForm = document.getElementById('regForm');
+
+    function openModal(courseName) {
+      document.getElementById('modalCourseName').textContent = courseName;
+      document.getElementById('regCourse').value = courseName;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeModal() {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      regForm.reset();
+    }
+
+    regForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('regName').value.trim();
+      const phone = document.getElementById('regPhone').value.trim();
+      const course = document.getElementById('regCourse').value;
+
+      if(!name || !phone) return alert("Please fill all fields");
+
+      const { error } = await db.from('students').insert([{ name, phone, course }]);
+      
+      if(error) {
+        alert("Error: " + error.message);
+      } else {
+        alert("Registration Successful! We will contact you soon.");
+        closeModal();
+      }
+    });
+  </script>
+
+  <div class="fixed bottom-5 right-5 z-[90] flex flex-col gap-3">
+    <a href="https://wa.me/918875116685?text=Hello%20Cyber%20X%20Academy%2C%20mujhe%20course%20admission%20details%20chahiye." target="_blank" class="w-14 h-14 rounded-full bg-green-500 flex items-center justify-center shadow-2xl border border-white/20" title="WhatsApp Cyber X">
+      <span class="iconify w-7 h-7 text-white" data-icon="lucide:message-circle"></span>
+    </a>
+    <a href="tel:+918875116685" class="w-14 h-14 rounded-full bg-dark-800 flex items-center justify-center shadow-2xl border border-white/20" title="Call Cyber X">
+      <span class="iconify w-7 h-7" data-icon="lucide:phone-call"></span>
+    </a>
+  </div>
+
+</body>
+</html>
